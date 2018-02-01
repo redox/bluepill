@@ -293,7 +293,7 @@ module Bluepill
         with_timeout(start_grace_time, on_start_timeout) do
           result = System.execute_blocking(start_command, system_command_options)
 
-          unless result[:exit_code].zero?
+          unless result[:exit_code] == 0
             logger.warning 'Start command execution returned non-zero exit code:'
             logger.warning result.inspect
           end

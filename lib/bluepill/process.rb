@@ -307,7 +307,7 @@ module Bluepill
       return unless pre_start_command
       logger.warning "Executing pre start command: #{pre_start_command}"
       result = System.execute_blocking(pre_start_command, system_command_options)
-      return if result[:exit_code].zero?
+      return if result[:exit_code] == 0
       logger.warning 'Pre start command execution returned non-zero exit code:'
       logger.warning result.inspect
     end
@@ -326,7 +326,7 @@ module Bluepill
         with_timeout(stop_grace_time, 'stop') do
           result = System.execute_blocking(cmd, system_command_options)
 
-          unless result[:exit_code].zero?
+          unless result[:exit_code] == 0
             logger.warning 'Stop command execution returned non-zero exit code:'
             logger.warning result.inspect
           end
@@ -375,7 +375,7 @@ module Bluepill
         with_timeout(restart_grace_time, 'restart') do
           result = System.execute_blocking(cmd, system_command_options)
 
-          unless result[:exit_code].zero?
+          unless result[:exit_code] == 0
             logger.warning 'Restart command execution returned non-zero exit code:'
             logger.warning result.inspect
           end
